@@ -5,8 +5,12 @@ class CustomFilledButton extends StatelessWidget {
   final String text;
   final Color? buttonColor;
 
-  const CustomFilledButton(
-      {super.key, this.onPressed, required this.text, this.buttonColor});
+  const CustomFilledButton({
+    super.key,
+    this.onPressed,
+    required this.text,
+    this.buttonColor,
+  });
 
   @override
   Widget build(BuildContext context) {
