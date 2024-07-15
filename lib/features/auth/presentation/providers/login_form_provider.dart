@@ -59,12 +59,13 @@ class LoginFormState {
     this.password = const Password.pure(),
   });
 
-  LoginFormState copyWith(
-          {bool? isPosting,
-          bool? isFormPosted,
-          bool? isValid,
-          Email? email,
-          Password? password}) =>
+  LoginFormState copyWith({
+    bool? isPosting,
+    bool? isFormPosted,
+    bool? isValid,
+    Email? email,
+    Password? password,
+  }) =>
       LoginFormState(
         isPosting: isPosting ?? this.isPosting,
         isFormPosted: isFormPosted ?? this.isFormPosted,
