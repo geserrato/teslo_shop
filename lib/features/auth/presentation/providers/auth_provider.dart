@@ -13,11 +13,39 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   AuthNotifier({required this.authRepository}) : super(AuthState());
 
-  void loginUser(String email, String password) async {}
+  Future<void> loginUser(String email, String password) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    try {
+      final User user = await authRepository.login(email, password);
+
+      _setLoggedUser(user);
+    } on CustomError catch (e) {
+      logout(e.message);
+    } catch (e) {
+      logout('Error no controlado');
+    }
+  }
 
   void registerUser(String email, String password, String fullName) async {}
 
   void checkAuthStatus() async {}
+
+  void _setLoggedUser(User user) {
+    state = state.copyWith(
+      authStatus: AuthStatus.authenticated,
+      user: user,
+      errorMessage: '',
+    );
+  }
+
+  void logout([String? errorMessage]) {
+    state = state.copyWith(
+      authStatus: AuthStatus.notAuthenticated,
+      user: null,
+      errorMessage: errorMessage,
+    );
+  }
 }
 
 class AuthState {

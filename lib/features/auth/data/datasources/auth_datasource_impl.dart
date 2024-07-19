@@ -8,7 +8,6 @@ class AuthDatasourceImpl extends AuthDatasource {
 
   @override
   Future<User> checkAuthStatus(String token) {
-    // TODO: implement checkAuthStauts
     throw UnimplementedError();
   }
 
@@ -21,14 +20,24 @@ class AuthDatasourceImpl extends AuthDatasource {
       );
       final User user = UserMapper.userJsonToEntity(response.data);
       return user;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw CustomError(
+            e.response?.data["message"] ?? 'Credenciales incorrectas', 2);
+      }
+
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw CustomError('Revisar conexión a internet', 1);
+      }
+
+      throw Exception();
     } catch (e) {
-      throw WrongCredentials();
+      throw Exception();
     }
   }
 
   @override
   Future<User> register(String email, String password, String fullName) {
-    // TODO: implement register
     throw UnimplementedError();
   }
 }
