@@ -6,5 +6,5 @@ class Environment {
   }
 
   static String apiUrl =
-      dotenv.env['API_URL'] ?? 'No está configurado el API_URL';
+      'http://192.168.1.83:3000/api' ?? 'No está configurado el API_URL';
 }
